@@ -29,7 +29,7 @@ for(const root of roots){
  box.innerHTML='<article><time>'+esc(stamp(x.published_at))+'</time><h2 class="article-title">'+esc(x.title)+'</h2>'+(img?'<img src="'+esc(img)+'" alt="'+esc(x.title)+'" loading="lazy">':'')+'<div class="article-body">'+esc(x.body)+'</div>'+gallery.map(u=>'<img src="'+esc(u)+'" alt="記事の写真" loading="lazy">').join('')+'</article>';
  box.style.display='block';
  }else{
- box.innerHTML=data.length?data.map(x=>{const img=safeImg(x.cover_url);return '<article><a href="'+kind+'.html?article='+encodeURIComponent(x.id)+'">'+(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':'')+'<time>'+esc(stamp(x.published_at))+'</time><h3 class="article-title">'+esc(x.title)+'</h3>'+(x.category?'<small>'+esc(x.category)+'</small>':'')+'<p>'+esc(x.excerpt||'')+'</p></a></article>'}).join(''):'<p class="empty">現在、公開中の記事はありません。</p>';
+ box.innerHTML=data.length?data.map(x=>{const img=safeImg(x.cover_url);return '<article class="'+(kind==='news'?'nagi-news-row':'')+'"><a href="'+kind+'.html?article='+encodeURIComponent(x.id)+'">'+(kind==='news'?'':(img?'<img src="'+esc(img)+'" alt="" loading="lazy">':''))+'<time>'+esc(stamp(x.published_at))+'</time><h3 class="article-title">'+esc(x.title)+'</h3>'+(kind==='news'?'':((x.category?'<small>'+esc(x.category)+'</small>':'')+'<p>'+esc(x.excerpt||'')+'</p>'))+'</a></article>'}).join(''):'<p class="empty">現在、公開中の記事はありません。</p>';
  }
  }catch(err){console.error('NAGI editorial:',err);box.innerHTML='<p class="empty">記事を読み込めませんでした。時間をおいて再度お試しください。</p>'}
 }
